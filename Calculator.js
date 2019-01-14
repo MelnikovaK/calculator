@@ -29,7 +29,7 @@ class Calculator {
     this.actions_names = {}
     
   	//
-  	this.operations_story = '';
+  	this.input = 0;
 
   	//
   	this.$container = $container;
@@ -49,6 +49,7 @@ class Calculator {
 
 		// this.initMouseInput( $container );
 		this.initKeyboardInput( $container );
+
   	
   }
 
@@ -59,6 +60,7 @@ class Calculator {
       'result': this.showResult.bind(this),
       'clear-input': this.clearInput.bind(this),
       'invert-sign': this.invertSign.bind(this),
+
       'square': this.square.bind(this),
       'reciprocal': this.reciprocal.bind(this),
       'devide': this.printOperationSymbol.bind(this),
@@ -102,9 +104,10 @@ class Calculator {
         'height': '60px'  
       })
       .click( function(e){
+        console.log('button.click: ', button.action );
         if( button.action ) {
           if( this.actions_names[ button.action ] ) this.actions_names[ button.action ](e);
-        }else this.printSymbol(e);
+        } else this.printSymbol(e);
       }.bind(this))
     ;
 
@@ -130,21 +133,35 @@ class Calculator {
     this.$screen.text(this.$screen.text() + ' ' + input_symbols + ' ');
   }
 
-  printSymbol(){
-
-    var input_symbols = event.key || event.target.innerText;
-    if ( input_symbols.match(/[a-z]/g) ) return;
-    this.$screen.text(this.$screen.text() + input_symbols);
+  printSymbol(event){
+    var input_symbol = event.key || event.target.innerText;
+    if( !input_symbol ) return;
+    input_symbol = parseInt(input_symbol);
+    if( isNaN(input_symbol) ) return;
+    // if ( !input_symbol.match(/[0-9]/g) ) return;
+    console.log("printSymbol: ", input_symbol );
+    this.$screen.text(this.$screen.text() + input_symbol);
   }
 
   showResult(){
+
     var result_array = this.$screen.text().split(' ');
     var result_string = '';
     for ( var i = 0; i < result_array.length; i += 3 ) {
-      if (result_array[i+1] == '/') result_string += parseFloat(result_array[i]) / parseFloat(result_array [i+2]);
-      if (result_array[i+1] == '*') result_string += parseFloat(result_array[i]) * parseFloat(result_array [i+2]);
-      if (result_array[i+1] == '-') result_string += parseFloat(result_array[i]) - parseFloat(result_array [i+2]);
-      if (result_array[i+1] == '+') result_string += parseFloat(result_array[i]) + parseFloat(result_array [i+2]);
+      var current_item = returnsult_array[i];
+      var current_item_number = parseInt(current_item);
+      if( isNaN(current_item_number) ) current_item_number = parseFloat(current_item);
+      if( isNaN(current_item_number) ) {
+        console.log('d');
+      }// not a Number
+
+
+
+
+      if (result_array[i+1] == '/') result_string += parseFloat(current_item) / parseFloat(result_array [i+2]);
+      if (result_array[i+1] == '*') result_string += parseFloat(current_item) * parseFloat(result_array [i+2]);
+      if (result_array[i+1] == '-') result_string += parseFloat(current_item) - parseFloat(result_array [i+2]);
+      if (result_array[i+1] == '+') result_string += parseFloat(current_item) + parseFloat(result_array [i+2]);
     }
     if (result_array.length == 1) result_string = result_array[0];
     this.$screen.text( result_string.toString() );
@@ -193,6 +210,8 @@ class Calculator {
   // >>> INPUT >>>
 
   initKeyboardInput( $container ) {
+
+    /*
   	if( !this.onKeyPress ){
 		  this.onKeyPress = function(event){
 		  	var key = event.key;
@@ -203,7 +222,23 @@ class Calculator {
         }
 		  }.bind(this);
 		}
+
   	$container.on('keydown', this.onKeyPress);
+    */
+    var scope = this;
+
+    $container.on('keydown', function(event){
+      event.preventDefault(); 
+      var key = event.key;
+      var action = scope.actions_by_key[key];
+      console.log('key: ', key, action );
+      if ( action ) {
+        scope.actions_names[ action.action ]();
+      } else {
+        scope.printSymbol(event);
+      }
+    });
+
   }
   // <<< INPUT <<<
 

@@ -9,4 +9,8 @@
 	width: 100%;
 	height: 60px;
 	overflow: hidden;
+	padding: 10px;
+	font-size: 20px;
+	text-align: right;
+	box-sizing: border-box;
 }
