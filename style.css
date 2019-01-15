@@ -2,7 +2,9 @@
 	width: 300px;
 	height:400px;
 	background-color: yellow;
+	position: absolute;
 }
+
 .screen {
 	background-color: blue;
 	color: white;
@@ -10,7 +12,16 @@
 	height: 60px;
 	overflow: hidden;
 	padding: 10px;
-	font-size: 20px;
+	font-size: 25px;
 	text-align: right;
 	box-sizing: border-box;
+}
+
+.small_font_size {
+	font-size: 18px;
+}
+
+.calculator_button {
+	position: relative;
+	display: inline-block;
 }

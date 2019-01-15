@@ -4,14 +4,10 @@
 	"history_length": 10,
 
 	"columns": 5,
-	"column_width": 60,
-	"column_height": 60,
+	"column_width": 20,
+	"column_height": 40,
 	"column_offset": 5,
 	"row_offset": 5,
-
-	"extraActions": {
-		"current-year": "function( current_input ){ return new Date().getFullYear(); }"
-	},
 
 	"buttons": [
 
@@ -51,13 +47,8 @@
 			"background": "gray"
 		},
 
-		{
-			"label": "=",
-			"action": "result",
-			"description": "Show Result",
-			"key": "Enter",
-			"background": "gray"
-		},
+
+
 
 
 		{
@@ -180,13 +171,7 @@
 		},
 
 
-		{
-			"label": "+",
-			"action": "addition",
-			"description": "Addition",
-			"key": "+",
-			"background": "gray"
-		},
+
 
 
 		{
@@ -200,12 +185,30 @@
 
 		{
 			"label": ",",
-			"action": "set-float-point",
+			"action": "set-float-pont",
 			"description": "Set the float point",
 			"key": ".",
 			"background": "white"
-		}
+		},
+
+		{
+			"label": "+",
+			"action": "addition",
+			"description": "Addition",
+			"key": "+",
+			"background": "gray"
+		},
     
+    {
+			"label": "=",
+			"action": "result",
+			"description": "Show Result",
+			"key": "Enter",
+			"background": "gray"
+		}
+
+
+
 	]
 
 }
